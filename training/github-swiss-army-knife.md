@@ -20,6 +20,67 @@ Most people think GitHub is just for programmers storing code. That's like sayin
 
 ---
 
+## LESSON  0: HOW TO MAKE A COMMIT (The Absolute Basics)
+
+**The Problem:** Everyone says "just commit it" but nobody explains what that actually means or how to do it.
+
+**What "Commit" Means:** A commit is a snapshot of your files at a specific moment, saved with a note explaining what changed. Think of it like saving a version of a Word document with a descriptive filename, except GitHub remembers every version forever.
+
+### Method 1: In Your Browser (Easiest - No Tools Needed)
+
+1. Go to your repo on github.com
+2. Click the file you want to change
+3. Click the pencil icon (top right of the file view)
+4. Make your edits in the text box
+5. Scroll down to "Commit changes..."
+6. Write a short message describing what you changed (e.g., "Fix typo in Lesson 3")
+7. Select "Commit directly to the main branch"
+8. Click the green **Commit changes** button
+
+Done. Your change is saved and tracked.
+
+### Method 2: Using VS Code (What Roger Actually Does)
+
+1. Open VS Code with your project folder
+2. Make your edits to any file
+3. Look at the left sidebar - click the **Source Control** icon (it looks like a branch)
+4. You'll see your changed files listed under "Changes"
+5. Hover over a file and click the **+** to "stage" it (tell GitHub you want to save this file)
+6. Or click the **+** next to "Changes" to stage ALL files at once
+7. Type a message in the box at the top (e.g., "Add new training module")
+8. Click the **Commit** button
+9. Click **Sync Changes** (or the icon with arrows) to push to GitHub
+
+### Method 3: Using the Terminal (Power User)
+
+```bash
+# Step 1: Check what changed
+git status
+
+# Step 2: Add the files you want to save
+git add filename.txt        # one file
+git add .                    # all files
+
+# Step 3: Save the snapshot with a message
+git commit -m "Describe what you changed"
+
+# Step 4: Send it to GitHub
+git push origin main
+```
+
+### How to Write a Good Commit Message
+
+| Bad Message | Good Message | Why |
+|-------------|-------------|-----|
+| "update" | "Add section on Docker containers to cheat sheet" | Tells you WHAT changed |
+| "fix stuff" | "Fix broken table formatting in gotchas section" | Tells you WHERE and WHAT |
+| "final" | "Add print-friendly CSS to HTML cheat sheet" | Tells you the real change |
+| "asdf" | "Update OpenClaw token config after conflict" | Professional and searchable |
+
+**Rule of thumb:** If you can't understand what changed by reading the message 6 months later, rewrite it.
+
+---
+
 ## Lesson 1: GitHub Is a Free File Cabinet That Remembers Everything
 
 **The Problem:** You have files everywhere - Desktop, Downloads, Google Drive, Dropbox, email attachments, USB sticks. You edit a document, save it as "FINAL_v2_ACTUALLY_FINAL.docx," and nobody knows which version is real.
@@ -90,7 +151,7 @@ Roger tracks all his venture ideas as GitHub Issues across his repos. "Launch pa
 4. Push the file and watch the robot work
 
 ### Real-World Example
-Roger uses GitHub Actions to auto-deploy his website every time he pushes a change. No manual FTP. No "oops I forgot to upload the new file." Push → Live.
+Roger uses GitHub Actions to auto-deploy his website every time he pushes a change. No manual FTP. No "oops I forgot to upload the new file." Push to Live.
 
 ---
 
@@ -141,7 +202,7 @@ Roger keeps his "Top 50 Terminal Commands" as a public gist. Students bookmark i
 4. Add custom fields: priority, effort, deadline
 
 ### Real-World Example
-Roger runs his entire LifeQuest AI content pipeline through a GitHub Project. Columns: Idea → Outline → Draft → Edit → Publish. Cards move left to right. No tool switching.
+Roger runs his entire LifeQuest AI content pipeline through a GitHub Project. Columns: Idea > Outline > Draft > Edit > Publish. Cards move left to right. No tool switching.
 
 ---
 
@@ -239,7 +300,7 @@ Roger's GitHub profile README links to LifeQuest AI, GrowthPoint TechAI, AskPops
 | **GitHub + Ollama** | Local LLM model storage | Pulls models, tracks experiments |
 | **GitHub + Docker** | Containerized apps | OpenClaw deployment configs |
 | **GitHub + GitHub CLI** | Terminal control of repos | `gh repo create`, `gh pr create` |
-| **GitHub + Notion/Obsidian** | Documentation sync | Curriculum drafts → GitHub → Publish |
+| **GitHub + Notion/Obsidian** | Documentation sync | Curriculum drafts > GitHub > Publish |
 
 ---
 
