@@ -1,0 +1,16 @@
+title: GrowthPoint Tech AI
+description: Microsoft 365, Copilot & SharePoint consulting for small businesses
+
+# GitHub Pages settings
+remote_theme: null
+theme: null
+
+# Build settings
+markdown: kramdown
+exclude:
+  - .git
+  - .github
+  - node_modules
+  - vendor
+  - design_handoff_*
+  - "*.lock"
