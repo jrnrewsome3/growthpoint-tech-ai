@@ -237,7 +237,7 @@ Then just: `ssh hostinger`
 
 ---
 
-## 13. CROSS-PLATFORM GOTCHAS (Why Youre Frustrated)
+## 13. CROSS-PLATFORM GOTCHAS (Why You're Frustrated)
 
 | Problem | macOS/Linux | Windows PowerShell | Fix |
 |---------|-------------|--------------------|-----|
@@ -324,7 +324,7 @@ Then just: `ssh hostinger`
 
 ## 16. LLM PROMPT (Copy/Paste to Other AI Assistants)
 
-<copyable label="Prompt for Other LLMs" editable="true">
+```
 I need you to act as a terminal tutor and create a personalized cheat sheet for me. Here is my context:
 
 - I work across THREE environments: (1) macOS Terminal (zsh) for development, (2) Windows PowerShell for my DevOps/consulting job (Microsoft ecosystem: M365, Azure, Power Platform), and (3) Linux VPS (Ubuntu/Debian via SSH) for running Dockerized agent infrastructure (OpenClaw/Hermes).
@@ -338,7 +338,7 @@ Please produce:
 3. A "gotchas" section covering the exact cross-platform issues that cause me trouble: line endings, path formats, sudo vs RunAsAdmin, script execution, and SSH config differences.
 4. A list of 10 time-saving shell shortcuts I should memorize today.
 5. A prompt I can reuse to ask YOU (or other LLMs) for help with specific terminal tasks in the future.
-</copyable>
+```
 
 ---
 
