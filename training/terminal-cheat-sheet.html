@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JRN3 Terminal Command Cheat Sheet</title>
+<style>
+  body{
+    margin:1cm;
+    font-family:"Segoe UI","Roboto","Helvetica","Arial",sans-serif;
+    line-height:1.4;
+    color:#222;
+  }
+  h1{
+    text-align:center;
+    margin-bottom:0.5em;
+    font-size:2em;
+  }
+  h2{
+    margin-top:2em;
+    font-size:1.6em;
+    page-break-before:always;
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    margin:0.5em 0 1.5em 0;
+    page-break-inside:avoid;
+  }
+  th, td{
+    border:1px solid #666;
+    padding:4px 8px;
+    vertical-align:top;
+  }
+  th{
+    background:#eaeaea;
+  }
+  tbody tr:nth-child(even){
+    background:#f9f9f9;
+  }
+  code{
+    font-family:monospace;
+    background:#f5f5f5;
+    padding:0 3px;
+    border-radius:3px;
+  }
+  pre.code-block{
+    font-family:monospace;
+    background:#f5f5f5;
+    border:1px solid #ccc;
+    padding:8px;
+    overflow:auto;
+    margin:0.5em 0 1.5em 0;
+  }
+  .copyable{
+    border:2px solid #007BFF;
+    background:#e8f4ff;
+    padding:10px;
+    margin:1em 1em;
+  }
+  .copyable label{
+    font-weight:bold;
+    display:block;
+    margin-bottom:6px;
+  }
+  .copyable textarea{
+    width:100%;
+    height:200px;
+    font-family:monospace;
+    border:none;
+    background:transparent;
+    resize:vertical;
+  }
+  .print-header{
+    text-align:center;
+    margin-bottom:1em;
+  }
+  @media print{
+    h2{page-break-before:always;}
+    table{page-break-inside:avoid;}
+    .print-header{position:fixed; top:0; left:0; width:100%; background:#fff; padding:10px 0;}
+    .no-print{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="print-header">
+  <h1>JRN3 Terminal Command Cheat Sheet</h1>
+  <p><strong>Version:</strong> 1.0 &nbsp;|&nbsp; <strong>Date:</strong> July 2026 &nbsp;|&nbsp; <strong>For:</strong> LifeQuest AI Training + Personal Reference</p>
+</div>
+
+<h2>1. NAVIGATION &amp; FILES</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>macOS / Linux (Bash/zsh)</th><th>Windows (PowerShell)</th></tr>
+</thead>
+<tbody>
+<tr><td>Print working directory</td><td><code>pwd</code></td><td><code>pwd</code> or <code>$PWD</code></td></tr>
+<tr><td>List files</td><td><code>ls -la</code></td><td><code>ls</code> or <code>Get-ChildItem -Force</code></td></tr>
+<tr><td>Change directory</td><td><code>cd ~/Documents</code></td><td><code>cd ~\Documents</code></td></tr>
+<tr><td>Go up one level</td><td><code>cd ..</code></td><td><code>cd ..</code></td></tr>
+<tr><td>Go to home</td><td><code>cd ~</code></td><td><code>cd ~</code></td></tr>
+<tr><td>Create directory</td><td><code>mkdir project</code></td><td><code>mkdir project</code> or <code>New-Item -ItemType Directory project</code></td></tr>
+<tr><td>Create nested dirs</td><td><code>mkdir -p a/b/c</code></td><td><code>mkdir -Force a/b/c</code></td></tr>
+<tr><td>Create empty file</td><td><code>touch file.txt</code></td><td><code>New-Item file.txt</code></td></tr>
+<tr><td>Copy file</td><td><code>cp file.txt dest/</code></td><td><code>Copy-Item file.txt dest\</code></td></tr>
+<tr><td>Copy recursive</td><td><code>cp -r source/ dest/</code></td><td><code>Copy-Item -Recurse source\ dest\</code></td></tr>
+<tr><td>Move/rename</td><td><code>mv old.txt new.txt</code></td><td><code>Move-Item old.txt new.txt</code></td></tr>
+<tr><td>Delete file</td><td><code>rm file.txt</code></td><td><code>Remove-Item file.txt</code></td></tr>
+<tr><td>Delete directory</td><td><code>rm -rf folder/</code></td><td><code>Remove-Item -Recurse -Force folder\</code></td></tr>
+<tr><td>View file contents</td><td><code>cat file.txt</code></td><td><code>Get-Content file.txt</code> or <code>cat file.txt</code></td></tr>
+<tr><td>View first N lines</td><td><code>head -n 20 file.txt</code></td><td><code>Get-Content file.txt -TotalCount 20</code></td></tr>
+<tr><td>View last N lines</td><td><code>tail -n 20 file.txt</code></td><td><code>Get-Content file.txt -Tail 20</code></td></tr>
+<tr><td>Follow log live</td><td><code>tail -f log.txt</code></td><td><code>Get-Content log.txt -Wait</code></td></tr>
+<tr><td>Search in file</td><td><code>grep "error" log.txt</code></td><td><code>Select-String "error" log.txt</code> or <code>grep</code></td></tr>
+<tr><td>Find files by name</td><td><code>find . -name "*.json"</code></td><td><code>Get-ChildItem -Recurse -Filter "*.json"</code></td></tr>
+<tr><td>Better file finder</td><td><code>fd "*.json"</code> (install via brew)</td><td><code>fd "*.json"</code> (install via scoop/choco)</td></tr>
+<tr><td>Disk usage</td><td><code>du -sh *</code></td><td><code>Get-ChildItem | Measure-Object -Property Length -Sum</code></td></tr>
+<tr><td>Free space</td><td><code>df -h</code></td><td><code>Get-Volume</code></td></tr>
+</tbody>
+</table>
+
+<h2>2. SHELL SHORTCUTS (Universal Time-Savers)</h2>
+<table>
+<thead>
+<tr><th>Action</th><th>Key Combo</th></tr>
+</thead>
+<tbody>
+<tr><td>Clear screen</td><td><code>Ctrl + L</code> (macOS/Linux) / <code>Clear-Host</code> or <code>cls</code> (PowerShell)</td></tr>
+<tr><td>Cancel current command</td><td><code>Ctrl + C</code></td></tr>
+<tr><td>Auto-complete</td><td><code>Tab</code></td></tr>
+<tr><td>Previous command</td><td><code>Up Arrow</code></td></tr>
+<tr><td>Search command history</td><td><code>Ctrl + R</code> (macOS/Linux) / <code>Ctrl + R</code> or <code>F8</code> (PS)</td></tr>
+<tr><td>Move to start of line</td><td><code>Ctrl + A</code></td></tr>
+<tr><td>Move to end of line</td><td><code>Ctrl + E</code></td></tr>
+<tr><td>Delete word backward</td><td><code>Ctrl + W</code> (bash) / <code>Ctrl + Backspace</code></td></tr>
+<tr><td>Paste (macOS Terminal)</td><td><code>Cmd + V</code></td></tr>
+<tr><td>Paste (Windows)</td><td><code>Ctrl + V</code> or <code>Shift + Insert</code></td></tr>
+</tbody>
+</table>
+
+<h2>3. GIT WORKFLOW (Your Daily Bread)</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>macOS / Linux</th><th>Windows PowerShell</th></tr>
+</thead>
+<tbody>
+<tr><td>Check version</td><td><code>git --version</code></td><td><code>git --version</code></td></tr>
+<tr><td>Configure user</td><td><code>git config --global user.name "Roger Newsome"</code></td><td>Same</td></tr>
+<tr><td>Configure email</td><td><code>git config --global user.email "jrnewsome@gmail.com"</code></td><td>Same</td></tr>
+<tr><td>Check config</td><td><code>git config --global --list</code></td><td>Same</td></tr>
+<tr><td>Initialize repo</td><td><code>git init</code></td><td>Same</td></tr>
+<tr><td>Clone repo</td><td><code>git clone https://github.com/user/repo.git</code></td><td>Same</td></tr>
+<tr><td>Stage all files</td><td><code>git add .</code></td><td>Same</td></tr>
+<tr><td>Stage specific</td><td><code>git add filename.txt</code></td><td>Same</td></tr>
+<tr><td>Commit</td><td><code>git commit -m "message"</code></td><td>Same</td></tr>
+<tr><td>Push to main</td><td><code>git push origin main</code></td><td>Same</td></tr>
+<tr><td>Pull latest</td><td><code>git pull origin main</code></td><td>Same</td></tr>
+<tr><td>Check status</td><td><code>git status</code></td><td>Same</td></tr>
+<tr><td>View log</td><td><code>git log --oneline -10</code></td><td>Same</td></tr>
+<tr><td>Create branch</td><td><code>git branch feature-name</code></td><td>Same</td></tr>
+<tr><td>Switch branch</td><td><code>git checkout feature-name</code></td><td>Same</td></tr>
+<tr><td>Create &amp; switch</td><td><code>git checkout -b feature-name</code></td><td>Same</td></tr>
+<tr><td>Merge branch</td><td><code>git merge feature-name</code></td><td>Same</td></tr>
+<tr><td>View diff</td><td><code>git diff</code></td><td>Same</td></tr>
+<tr><td>Undo last commit (keep changes)</td><td><code>git reset --soft HEAD~1</code></td><td>Same</td></tr>
+<tr><td>Stash changes</td><td><code>git stash</code></td><td>Same</td></tr>
+<tr><td>Pop stash</td><td><code>git stash pop</code></td><td>Same</td></tr>
+</tbody>
+</table>
+<p><strong>Pro Tip:</strong> <code>git</code> commands are identical across platforms. The pain is usually SSH keys or line endings.</p>
+
+<h2>4. GITHUB CLI (gh)</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>Install (macOS)</td><td><code>brew install gh</code></td></tr>
+<tr><td>Install (Windows)</td><td><code>winget install --id GitHub.cli</code></td></tr>
+<tr><td>Login</td><td><code>gh auth login</code></td></tr>
+<tr><td>Create repo</td><td><code>gh repo create repo-name --public --source=. --remote=origin --push</code></td></tr>
+<tr><td>View issues</td><td><code>gh issue list</code></td></tr>
+<tr><td>Create PR</td><td><code>gh pr create</code></td></tr>
+<tr><td>View workflows</td><td><code>gh run list</code></td></tr>
+</tbody>
+</table>
+
+<h2>5. DOCKER (VPS / macOS)</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>Check Docker version</td><td><code>docker --version</code></td></tr>
+<tr><td>List running containers</td><td><code>docker ps</code></td></tr>
+<tr><td>List all containers</td><td><code>docker ps -a</code></td></tr>
+<tr><td>List images</td><td><code>docker images</code></td></tr>
+<tr><td>Stop container</td><td><code>docker stop container_name</code></td></tr>
+<tr><td>Remove container</td><td><code>docker rm container_name</code></td></tr>
+<tr><td>Remove image</td><td><code>docker rmi image_name</code></td></tr>
+<tr><td>View logs</td><td><code>docker logs --tail 100 container_name</code></td></tr>
+<tr><td>Follow logs</td><td><code>docker logs -f container_name</code></td></tr>
+<tr><td>Execute shell inside</td><td><code>docker exec -it container_name /bin/bash</code></td></tr>
+<tr><td>Execute command</td><td><code>docker exec container_name command</code></td></tr>
+<tr><td>Build image</td><td><code>docker build -t myapp:latest .</code></td></tr>
+<tr><td>Compose up</td><td><code>docker-compose up -d</code></td></tr>
+<tr><td>Compose down</td><td><code>docker-compose down</code></td></tr>
+<tr><td>Compose logs</td><td><code>docker-compose logs -f</code></td></tr>
+<tr><td>Inspect container</td><td><code>docker inspect container_name</code></td></tr>
+<tr><td>System prune (cleanup)</td><td><code>docker system prune -a</code></td></tr>
+</tbody>
+</table>
+
+<h2>6. SSH &amp; VPS MANAGEMENT</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>macOS / Linux</th><th>Windows PowerShell</th></tr>
+</thead>
+<tbody>
+<tr><td>SSH to server</td><td><code>ssh root@187.77.199.41</code></td><td><code>ssh root@187.77.199.41</code></td></tr>
+<tr><td>SSH with key</td><td><code>ssh -i ~/.ssh/key root@host</code></td><td><code>ssh -i $env:USERPROFILE\.ssh\key root@host</code></td></tr>
+<tr><td>Copy file to server</td><td><code>scp file.txt root@host:/path/</code></td><td><code>scp file.txt root@host:/path/</code></td></tr>
+<tr><td>Copy from server</td><td><code>scp root@host:/path/file.txt .</code></td><td><code>scp root@host:/path/file.txt .</code></td></tr>
+<tr><td>Edit SSH config</td><td><code>nano ~/.ssh/config</code></td><td><code>notepad $env:USERPROFILE\.ssh\config</code></td></tr>
+</tbody>
+</table>
+<p><strong>SSH Config Example (~/.ssh/config):</strong></p>
+<pre class="code-block"><code>Host hostinger
+    HostName 187.77.199.41
+    User root
+    IdentityFile ~/.ssh/id_rsa
+</code></pre>
+<p>Then just: <code>ssh hostinger</code></p>
+
+<h2>7. SYSTEM &amp; PROCESS MONITORING (Linux VPS)</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>Top processes</td><td><code>top</code> or <code>htop</code> (better)</td></tr>
+<tr><td>Disk space</td><td><code>df -h</code></td></tr>
+<tr><td>Memory usage</td><td><code>free -h</code></td></tr>
+<tr><td>Check service status</td><td><code>systemctl status service-name</code></td></tr>
+<tr><td>Restart service</td><td><code>sudo systemctl restart service-name</code></td></tr>
+<tr><td>View service logs</td><td><code>journalctl -u service-name -n 100 --no-pager</code></td></tr>
+<tr><td>Check ports listening</td><td><code>ss -lntp</code></td></tr>
+<tr><td>Find process by port</td><td><code>lsof -i :3000</code></td></tr>
+<tr><td>Kill process</td><td><code>kill -9 PID</code></td></tr>
+<tr><td>Check CPU info</td><td><code>lscpu</code></td></tr>
+<tr><td>Check OS version</td><td><code>cat /etc/os-release</code></td></tr>
+</tbody>
+</table>
+
+<h2>8. HOMEBREW (macOS Package Manager)</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>Install package</td><td><code>brew install package-name</code></td></tr>
+<tr><td>Install app (cask)</td><td><code>brew install --cask package-name</code></td></tr>
+<tr><td>Update brew itself</td><td><code>brew update</code></td></tr>
+<tr><td>Upgrade packages</td><td><code>brew upgrade</code></td></tr>
+<tr><td>Search</td><td><code>brew search keyword</code></td></tr>
+<tr><td>List installed</td><td><code>brew list</code></td></tr>
+<tr><td>Uninstall</td><td><code>brew uninstall package-name</code></td></tr>
+<tr><td>Trust untrusted tap</td><td><code>brew trust user/tap</code></td></tr>
+<tr><td>Check issues</td><td><code>brew doctor</code></td></tr>
+</tbody>
+</table>
+<p><strong>Key packages you use:</strong> <code>git</code>, <code>gh</code>, <code>ollama</code>, <code>docker</code>, <code>jq</code>, <code>rg</code> (ripgrep), <code>fd</code>, <code>tldr</code></p>
+
+<h2>9. POWERSHELL-SPECIFIC (Windows Consulting Machine)</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>Command</th></tr>
+</thead>
+<tbody>
+<tr><td>Get help</td><td><code>Get-Help command</code></td></tr>
+<tr><td>List aliases</td><td><code>Get-Alias</code></td></tr>
+<tr><td>Where/Filter</td><td><code>Get-Process | Where-Object {$_.CPU -gt 100}</code></td></tr>
+<tr><td>Environment variable</td><td><code>$env:PATH</code></td></tr>
+<tr><td>Set env var</td><td><code>$env:MY_VAR = "value"</code></td></tr>
+<tr><td>View PATH</td><td><code>$env:PATH -split ';'</code></td></tr>
+<tr><td>Execute policy check</td><td><code>Get-ExecutionPolicy</code></td></tr>
+<tr><td>Set execution policy</td><td><code>Set-ExecutionPolicy RemoteSigned</code> (Admin needed)</td></tr>
+<tr><td>Download file</td><td><code>Invoke-WebRequest -Uri "url" -OutFile "file"</code></td></tr>
+<tr><td>Unzip</td><td><code>Expand-Archive file.zip -DestinationPath .\</code></td></tr>
+<tr><td>Start program</td><td><code>Start-Process notepad</code></td></tr>
+</tbody>
+</table>
+
+<h2>10. AI / LLM TOOLING</h2>
+<table>
+<thead>
+<tr><th>Tool</th><th>macOS Command</th><th>Windows Equivalent</th></tr>
+</thead>
+<tbody>
+<tr><td>Ollama run model</td><td><code>ollama run gemma4:12b</code></td><td><code>ollama run gemma4:12b</code> (after install)</td></tr>
+<tr><td>List local models</td><td><code>ollama list</code></td><td><code>ollama list</code></td></tr>
+<tr><td>Pull model</td><td><code>ollama pull gemma4:12b</code></td><td><code>ollama pull gemma4:12b</code></td></tr>
+<tr><td>Hermes status</td><td><code>~/.local/bin/hermes gateway status</code></td><td>N/A (Mac/Linux only)</td></tr>
+<tr><td>Vercel deploy</td><td><code>vercel</code> or <code>vercel --prod</code></td><td><code>vercel</code> or <code>vercel --prod</code></td></tr>
+<tr><td>Vercel logs</td><td><code>vercel logs</code></td><td><code>vercel logs</code></td></tr>
+</tbody>
+</table>
+
+<h2>11. NETWORKING &amp; WEB</h2>
+<table>
+<thead>
+<tr><th>Task</th><th>macOS / Linux</th><th>Windows PowerShell</th></tr>
+</thead>
+<tbody>
+<tr><td>Ping</td><td><code>ping google.com</code></td><td><code>ping google.com</code></td></tr>
+<tr><td>Check DNS</td><td><code>dig google.com</code></td><td><code>nslookup google.com</code></td></tr>
+<tr><td>Trace route</td><td><code>traceroute google.com</code></td><td><code>tracert google.com</code></td></tr>
+<tr><td>Check IP</td><td><code>curl ifconfig.me</code></td><td><code>Invoke-RestMethod ifconfig.me</code></td></tr>
+<tr><td>Download file</td><td><code>curl -O url</code> or <code>wget url</code></td><td><code>Invoke-WebRequest url -OutFile file</code></td></tr>
+<tr><td>HTTP GET</td><td><code>curl url</code></td><td><code>Invoke-RestMethod url</code></td></tr>
+<tr><td>JSON parse</td><td><code>curl url | jq '.'</code></td><td><code>Invoke-RestMethod url | ConvertTo-Json</code></td></tr>
+<tr><td>Port scan</td><td><code>nc -zv host port</code></td><td><code>Test-NetConnection host -Port port</code></td></tr>
+<tr><td>Check open ports</td><td><code>lsof -i -P</code></td><td><code>Get-NetTCPConnection</code></td></tr>
+</tbody>
+</table>
+
+<h2>12. TEXT PROCESSING &amp; SEARCH</h2>
+<table>
+<thead>
+<tr><th>Tool</th><th>macOS / Linux</th><th>Windows</th></tr>
+</thead>
+<tbody>
+<tr><td>Fast file search</td><td><code>rg "pattern"</code> (ripgrep)</td><td><code>rg "pattern"</code></td></tr>
+<tr><td>Fuzzy finder</td><td><code>fzf</code></td><td><code>fzf</code></td></tr>
+<tr><td>Stream editor</td><td><code>sed 's/old/new/g'</code></td><td>N/A (use WSL)</td></tr>
+<tr><td>AWK processing</td><td><code>awk '{print $1}'</code></td><td>N/A (use WSL)</td></tr>
+<tr><td>JSON pretty</td><td><code>jq '.' file.json</code></td><td>N/A (install jq for Windows)</td></tr>
+<tr><td>Word count</td><td><code>wc -l file.txt</code></td><td><code>(Get-Content file.txt).Length</code></td></tr>
+<tr><td>Sort unique</td><td><code>sort file.txt | uniq -c</code></td><td><code>Get-Content file.txt | Sort-Object -Unique</code></td></tr>
+</tbody>
+</table>
+
+<h2>13. CROSS-PLATFORM GOTCHAS (Why Youre Frustrated)</h2>
+<table>
+<thead>
+<tr><th>Problem</th><th>macOS/Linux</th><th>Windows PowerShell</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Path separators</strong></td><td>Forward slash <code>/</code></td><td>Backslash <code>\</code></td><td>Use forward slashes in Git URLs; Windows handles both now in most places</td></tr>
+<tr><td><strong>Home directory</strong></td><td><code>~</code></td><td><code>$env:USERPROFILE</code> or <code>~</code></td><td>In PS, <code>~</code> usually works; <code>$HOME</code> also works</td></tr>
+<tr><td><strong>Environment vars</strong></td><td><code>$VAR</code> or <code>${VAR}</code></td><td><code>$env:VAR</code></td><td>Always use <code>$env:</code> prefix in PS</td></tr>
+<tr><td><strong>Quotes &amp; escaping</strong></td><td>Single quotes literal, double expandable</td><td>Same, but backtick <code>`</code> escapes</td><td>Use double quotes when variables needed</td></tr>
+<tr><td><strong>Line endings</strong></td><td>LF (<code>\n</code>)</td><td>CRLF (<code>\r\n</code>)</td><td>Configure Git: <code>git config --global core.autocrlf input</code> (Mac) or <code>true</code> (Win)</td></tr>
+<tr><td><strong>SSH keys location</strong></td><td><code>~/.ssh/</code></td><td><code>$env:USERPROFILE\.ssh\</code></td><td>Same commands, different paths</td></tr>
+<tr><td><strong>Sudo</strong></td><td><code>sudo command</code></td><td>Run as Administrator</td><td>Right-click PowerShell → Run as Administrator</td></tr>
+<tr><td><strong>Package manager</strong></td><td><code>brew</code></td><td><code>winget</code>, <code>choco</code>, <code>scoop</code></td><td>Install <code>choco</code> for dev tools parity</td></tr>
+<tr><td><strong>Case sensitivity</strong></td><td>Case-sensitive</td><td>Case-insensitive (usually)</td><td>Be consistent with lowercase</td></tr>
+<tr><td><strong>Which/Where</strong></td><td><code>which node</code></td><td><code>Get-Command node</code> or <code>where.exe node</code></td><td><code>where.exe</code> is the CMD legacy that works in PS</td></tr>
+<tr><td><strong>Running scripts</strong></td><td><code>./script.sh</code></td><td><code>.\script.ps1</code> or <code>./script.sh</code> (WSL)</td><td>PS requires execution policy to run scripts</td></tr>
+</tbody>
+</table>
+
+<h2>14. YOUR SPECIFIC ENVIRONMENTS</h2>
+<h3>macOS (JRN3-MacBook-Air) - Development</h3>
+<ul>
+<li><strong>Shell:</strong> zsh (default on macOS)</li>
+<li><strong>Package manager:</strong> Homebrew</li>
+<li><strong>Key locations:</strong>
+<ul>
+<li>Projects: <code>~/Documents/GitHub/</code></li>
+<li>SSH keys: <code>~/.ssh/</code></li>
+<li>Local bins: <code>~/.local/bin/</code> (Hermes lives here)</li>
+<li>Configs: <code>~/.zshrc</code>, <code>~/.gitconfig</code></li>
+</ul>
+</li>
+<li><strong>Pro tip:</strong> After installing brew tools, run <code>brew doctor</code> to catch PATH issues. Some tools install to <code>/opt/homebrew/bin</code> (Apple Silicon) not <code>/usr/local/bin</code>.</li>
+</ul>
+
+<h3>Windows (AHCA Work Machine) - Consulting</h3>
+<ul>
+<li><strong>Shell:</strong> PowerShell (likely 5.1 or 7.x)</li>
+<li><strong>Package manager:</strong> <code>winget</code> (built-in), or Chocolatey</li>
+<li><strong>Key locations:</strong>
+<ul>
+<li>Home: <code>C:\Users\roger</code></li>
+<li>Projects: <code>C:\Users\roger\Documents\GitHub</code> or similar</li>
+<li>SSH keys: <code>%USERPROFILE%\.ssh\</code></li>
+</ul>
+</li>
+<li><strong>GCC/Enterprise constraint:</strong> Consumer AI tools not compliant. Use Azure DevOps, Azure CLI, PowerShell modules for M365.</li>
+</ul>
+
+<h3>VPS (Hostinger / Linux) - OpenClaw Deployment</h3>
+<ul>
+<li><strong>OS:</strong> Ubuntu (based on systemd + docker commands observed)</li>
+<li><strong>Access:</strong> SSH as root or ubuntu user</li>
+<li><strong>Key services:</strong> Docker containers, systemd user services</li>
+<li><strong>Critical commands for OpenClaw:</strong></li>
+</ul>
+<pre class="code-block"><code># Check all containers
+  docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}\t{{.Image}}'
+  
+  # Inspect a container
+  docker inspect container_name
+  
+  # Check OpenClaw logs
+  docker logs --tail 180 container_name
+  
+  # Check systemd user service
+  systemctl --user status openclaw-gateway.service
+  
+  # Journal logs
+  journalctl -u openclaw-gateway.service -n 100 --no-pager
+  </code></pre>
+<p><strong>Important:</strong> Two LLM setup had token conflicts because Hermes (Mac) and Skipper (VPS) shared one Telegram bot token. If reviving, separate tokens.</p>
+
+<h2>15. QUICK REFERENCE: COMMAND TRANSLATION TABLE</h2>
+<table>
+<thead>
+<tr><th>What you want</th><th>Bash/zsh</th><th>PowerShell</th></tr>
+</thead>
+<tbody>
+<tr><td>List all files including hidden</td><td><code>ls -la</code></td><td><code>ls -Force</code></td></tr>
+<tr><td>Find text in files</td><td><code>grep -r "text" .</code></td><td><code>Select-String -Recurse "text"</code></td></tr>
+<tr><td>Create and cd to dir</td><td><code>mkdir project && cd project</code></td><td><code>mkdir project; cd project</code></td></tr>
+<tr><td>Chain commands (if first succeeds)</td><td><code>cmd1 && cmd2</code></td><td><code>cmd1; if ($?) { cmd2 }</code></td></tr>
+<tr><td>Chain commands (always)</td><td><code>cmd1; cmd2</code></td><td><code>cmd1; cmd2</code></td></tr>
+<tr><td>Pipe to file</td><td><code>command > file.txt</code></td><td><code>command > file.txt</code></td></tr>
+<tr><td>Append to file</td><td><code>command >> file.txt</code></td><td><code>command >> file.txt</code></td></tr>
+<tr><td>Null output</td><td><code>command > /dev/null</code></td><td><code>command > $null</code></td></tr>
+<tr><td>Print environment</td><td><code>env</code></td><td><code>Get-ChildItem Env:</code></td></tr>
+<tr><td>Who am I</td><td><code>whoami</code></td><td><code>whoami</code> or <code>$env:USERNAME</code></td></tr>
+<tr><td>Current shell</td><td><code>echo $0</code></td><td><code>$PSVersionTable.PSVersion</code></td></tr>
+<tr><td>Search history</td><td><code>history | grep git</code></td><td><code>Get-History | Select-String git</code></td></tr>
+<tr><td>Make executable</td><td><code>chmod +x script.sh</code></td><td>N/A (use <code>Set-ExecutionPolicy</code> for PS)</td></tr>
+<tr><td>File permissions</td><td><code>ls -la</code></td><td><code>Get-Acl file.txt</code></td></tr>
+</tbody>
+</table>
+
+<h2>16. LLM PROMPT (Copy/Paste to Other AI Assistants)</h2>
+<div class="copyable">
+<label for="prompt">Prompt for Other LLMs</label>
+<textarea id="prompt">I need you to act as a terminal tutor and create a personalized cheat sheet for me. Here is my context:
+
+- I work across THREE environments: (1) macOS Terminal (zsh) for development, (2) Windows PowerShell for my DevOps/consulting job (Microsoft ecosystem: M365, Azure, Power Platform), and (3) Linux VPS (Ubuntu/Debian via SSH) for running Dockerized agent infrastructure (OpenClaw/Hermes).
+- I teach AI literacy classes to seniors and small business owners, so I need this in plain English with practical examples.
+- I frequently use: git, GitHub CLI, Docker, Ollama, Vercel CLI, SSH, Homebrew, and systemctl/journalctl.
+- My specific pain points: path separators differ between platforms, quoting/escaping rules vary, SSH key locations differ, PowerShell execution policies block scripts, and my Docker containers on VPS sometimes fail because I confuse Mac-local vs VPS-remote contexts.
+
+Please produce:
+1. A side-by-side cheat sheet (macOS/Linux Bash vs Windows PowerShell) covering: navigation, file ops, git, docker, ssh, networking, process management, and environment variables.
+2. Environment-specific tips for each of my three platforms (macOS dev, Windows corporate, Linux VPS headless).
+3. A "gotchas" section covering the exact cross-platform issues that cause me trouble: line endings, path formats, sudo vs RunAsAdmin, script execution, and SSH config differences.
+4. A list of 10 time-saving shell shortcuts I should memorize today.
+5. A prompt I can reuse to ask YOU (or other LLMs) for help with specific terminal tasks in the future.</textarea>
+</div>
+
+<hr class="no-print">
+<p class="no-print"><em>Built for Roger Newsome (JRN3) | LifeQuest AI | GrowthPoint TechAI</em></p>
+</body>
+</html>
